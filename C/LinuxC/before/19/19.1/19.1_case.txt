@@ -1,0 +1,44 @@
+a.out:	file format mach-o 64-bit x86-64
+Disassembly of section __TEXT,__text:
+
+0000000100003f40 <_bar>:
+100003f40: 55                          	pushq	%rbp
+100003f41: 48 89 e5                    	movq	%rsp, %rbp
+100003f44: 89 7d fc                    	movl	%edi, -4(%rbp)
+100003f47: 89 75 f8                    	movl	%esi, -8(%rbp)
+100003f4a: 8b 45 fc                    	movl	-4(%rbp), %eax
+100003f4d: 03 45 f8                    	addl	-8(%rbp), %eax
+100003f50: 89 45 f4                    	movl	%eax, -12(%rbp)
+100003f53: 8b 45 f4                    	movl	-12(%rbp), %eax
+100003f56: 5d                          	popq	%rbp
+100003f57: c3                          	retq
+100003f58: 0f 1f 84 00 00 00 00 00     	nopl	(%rax,%rax)
+
+0000000100003f60 <_foo>:
+100003f60: 55                          	pushq	%rbp 
+100003f61: 48 89 e5                    	movq	%rsp, %rbp
+100003f64: 48 83 ec 10                 	subq	$16, %rsp
+100003f68: 89 7d fc                    	movl	%edi, -4(%rbp)
+100003f6b: 89 75 f8                    	movl	%esi, -8(%rbp)
+100003f6e: 8b 7d fc                    	movl	-4(%rbp), %edi
+100003f71: 8b 75 f8                    	movl	-8(%rbp), %esi
+100003f74: e8 c7 ff ff ff              	callq	0x100003f40 <_bar> 
+100003f79: 48 83 c4 10                 	addq	$16, %rsp
+100003f7d: 5d                          	popq	%rbp
+100003f7e: c3                          	retq
+100003f7f: 90                          	nop
+
+0000000100003f80 <_main>:
+100003f80: 55                          	pushq	%rbp
+100003f81: 48 89 e5                    	movq	%rsp, %rbp          // 以上两句，建立了main函数的栈
+100003f84: 48 83 ec 10                 	subq	$16, %rsp
+100003f88: c7 45 fc 00 00 00 00        	movl	$0, -4(%rbp)
+100003f8f: bf 02 00 00 00              	movl	$2, %edi            // 将实参放入寄存器
+100003f94: be 03 00 00 00              	movl	$3, %esi            // 将实参放入寄存器
+100003f99: e8 c2 ff ff ff              	callq	0x100003f60 <_foo>
+100003f9e: 31 c9                       	xorl	%ecx, %ecx
+100003fa0: 89 45 f8                    	movl	%eax, -8(%rbp)
+100003fa3: 89 c8                       	movl	%ecx, %eax
+100003fa5: 48 83 c4 10                 	addq	$16, %rsp
+100003fa9: 5d                          	popq	%rbp                // 销毁main函数栈
+100003faa: c3                          	retq

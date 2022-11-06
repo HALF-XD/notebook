@@ -1,0 +1,50 @@
+0000000000000000 <_push>:
+; {
+       0: 55                           	pushq	%rbp
+       1: 48 89 e5                     	movq	%rsp, %rbp
+       4: 48 8b 05 00 00 00 00         	movq	(%rip), %rax  # b <_push+0xb>
+       b: 48 8b 0d 00 00 00 00         	movq	(%rip), %rcx  # 12 <_push+0x12>
+      12: 40 88 7d ff                  	movb	%dil, -1(%rbp)
+;     stack[++top] = c;
+      16: 8a 55 ff                     	movb	-1(%rbp), %dl
+      19: 8b 31                        	movl	(%rcx), %esi
+      1b: 83 c6 01                     	addl	$1, %esi
+      1e: 89 31                        	movl	%esi, (%rcx)
+      20: 48 63 ce                     	movslq	%esi, %rcx
+      23: 88 14 08                     	movb	%dl, (%rax,%rcx)
+; }
+      26: 5d                           	popq	%rbp
+      27: c3                           	retq
+//===============================
+0000000100003f10 <_push>:
+100003f10: 55                          	pushq	%rbp
+100003f11: 48 89 e5                    	movq	%rsp, %rbp
+100003f14: 48 8d 05 05 41 00 00        	leaq	16645(%rip), %rax  # 100008020 <_stack>
+100003f1b: 48 8d 0d ee 40 00 00        	leaq	16622(%rip), %rcx  # 100008010 <_top>
+100003f22: 40 88 7d ff                 	movb	%dil, -1(%rbp)
+100003f26: 8a 55 ff                    	movb	-1(%rbp), %dl
+100003f29: 8b 31                       	movl	(%rcx), %esi
+100003f2b: 83 c6 01                    	addl	$1, %esi
+100003f2e: 89 31                       	movl	%esi, (%rcx)
+100003f30: 48 63 ce                    	movslq	%esi, %rcx
+100003f33: 88 14 08                    	movb	%dl, (%rax,%rcx)
+100003f36: 5d                          	popq	%rbp
+100003f37: c3                          	retq
+//===============================
+0000000000000000 <_push>:
+; {
+       0: 55                           	pushq	%rbp
+       1: 48 89 e5                     	movq	%rsp, %rbp
+       4: 48 8b 05 00 00 00 00         	movq	(%rip), %rax  # b <_push+0xb>
+       b: 48 8b 0d 00 00 00 00         	movq	(%rip), %rcx  # 12 <_push+0x12>
+      12: 40 88 7d ff                  	movb	%dil, -1(%rbp)
+;     stack[++top] = c;
+      16: 8a 55 ff                     	movb	-1(%rbp), %dl
+      19: 8b 31                        	movl	(%rcx), %esi
+      1b: 83 c6 01                     	addl	$1, %esi
+      1e: 89 31                        	movl	%esi, (%rcx)
+      20: 48 63 ce                     	movslq	%esi, %rcx
+      23: 88 14 08                     	movb	%dl, (%rax,%rcx)
+; }
+      26: 5d                           	popq	%rbp
+      27: c3                           	retq

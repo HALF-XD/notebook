@@ -1,0 +1,3 @@
+- 执行命令 `gcc test2.1.c test2.2.c -o test2.final`；
+- 生成二进制文件 `test2.final`；
+- 执行 `./test2.final` 打印结果；

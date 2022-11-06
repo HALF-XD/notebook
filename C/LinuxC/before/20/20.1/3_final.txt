@@ -1,0 +1,103 @@
+objdump -d final
+
+final:	file format mach-o 64-bit x86-64
+
+
+Disassembly of section __TEXT,__text:
+
+0000000100003ea0 <_push>:
+100003ea0: 55                          	pushq	%rbp
+100003ea1: 48 89 e5                    	movq	%rsp, %rbp
+100003ea4: 48 8d 05 75 41 00 00        	leaq	16757(%rip), %rax  # 100008020 <_stack>
+100003eab: 40 88 7d ff                 	movb	%dil, -1(%rbp)
+100003eaf: 8a 4d ff                    	movb	-1(%rbp), %cl
+100003eb2: 8b 15 58 41 00 00           	movl	16728(%rip), %edx  # 100008010 <_top>
+100003eb8: 83 c2 01                    	addl	$1, %edx
+100003ebb: 89 15 4f 41 00 00           	movl	%edx, 16719(%rip)  # 100008010 <_top>
+100003ec1: 48 63 f2                    	movslq	%edx, %rsi
+100003ec4: 88 0c 30                    	movb	%cl, (%rax,%rsi)
+100003ec7: 5d                          	popq	%rbp
+100003ec8: c3                          	retq
+100003ec9: 0f 1f 80 00 00 00 00        	nopl	(%rax)
+
+0000000100003ed0 <_pop>:
+100003ed0: 55                          	pushq	%rbp
+100003ed1: 48 89 e5                    	movq	%rsp, %rbp
+100003ed4: 48 8d 05 45 41 00 00        	leaq	16709(%rip), %rax  # 100008020 <_stack>
+100003edb: 8b 0d 2f 41 00 00           	movl	16687(%rip), %ecx  # 100008010 <_top>
+100003ee1: 89 ca                       	movl	%ecx, %edx
+100003ee3: 83 c2 ff                    	addl	$-1, %edx
+100003ee6: 89 15 24 41 00 00           	movl	%edx, 16676(%rip)  # 100008010 <_top>
+100003eec: 48 63 f1                    	movslq	%ecx, %rsi
+100003eef: 0f be 04 30                 	movsbl	(%rax,%rsi), %eax
+100003ef3: 5d                          	popq	%rbp
+100003ef4: c3                          	retq
+100003ef5: 66 2e 0f 1f 84 00 00 00 00 00       	nopw	%cs:(%rax,%rax)
+100003eff: 90                          	nop
+
+0000000100003f00 <_is_empty>:
+100003f00: 55                          	pushq	%rbp
+100003f01: 48 89 e5                    	movq	%rsp, %rbp
+100003f04: 83 3d 05 41 00 00 ff        	cmpl	$-1, 16645(%rip)  # 100008010 <_top>
+100003f0b: 0f 94 c0                    	sete	%al
+100003f0e: 24 01                       	andb	$1, %al
+100003f10: 0f b6 c0                    	movzbl	%al, %eax
+100003f13: 5d                          	popq	%rbp
+100003f14: c3                          	retq
+100003f15: 90                          	nop
+100003f16: 90                          	nop
+100003f17: 90                          	nop
+100003f18: 90                          	nop
+100003f19: 90                          	nop
+100003f1a: 90                          	nop
+100003f1b: 90                          	nop
+100003f1c: 90                          	nop
+100003f1d: 90                          	nop
+100003f1e: 90                          	nop
+100003f1f: 90                          	nop
+
+0000000100003f20 <_main>:
+100003f20: 55                          	pushq	%rbp
+100003f21: 48 89 e5                    	movq	%rsp, %rbp
+100003f24: 48 83 ec 10                 	subq	$16, %rsp
+100003f28: c7 45 fc 00 00 00 00        	movl	$0, -4(%rbp)
+100003f2f: bf 61 00 00 00              	movl	$97, %edi
+100003f34: e8 67 ff ff ff              	callq	0x100003ea0 <_push>
+100003f39: bf 62 00 00 00              	movl	$98, %edi
+100003f3e: e8 5d ff ff ff              	callq	0x100003ea0 <_push>
+100003f43: bf 63 00 00 00              	movl	$99, %edi
+100003f48: e8 53 ff ff ff              	callq	0x100003ea0 <_push>
+100003f4d: e8 ae ff ff ff              	callq	0x100003f00 <_is_empty>
+100003f52: 83 f8 00                    	cmpl	$0, %eax
+100003f55: 0f 95 c1                    	setne	%cl
+100003f58: 80 f1 ff                    	xorb	$-1, %cl
+100003f5b: f6 c1 01                    	testb	$1, %cl
+100003f5e: 0f 85 05 00 00 00           	jne	0x100003f69 <_main+0x49>
+100003f64: e9 12 00 00 00              	jmp	0x100003f7b <_main+0x5b>
+100003f69: e8 62 ff ff ff              	callq	0x100003ed0 <_pop>
+100003f6e: 0f be f8                    	movsbl	%al, %edi
+100003f71: e8 1c 00 00 00              	callq	0x100003f92 <dyld_stub_binder+0x100003f92>
+100003f76: e9 d2 ff ff ff              	jmp	0x100003f4d <_main+0x2d>
+100003f7b: bf 0a 00 00 00              	movl	$10, %edi
+100003f80: e8 0d 00 00 00              	callq	0x100003f92 <dyld_stub_binder+0x100003f92>
+100003f85: 31 c9                       	xorl	%ecx, %ecx
+100003f87: 89 45 f8                    	movl	%eax, -8(%rbp)
+100003f8a: 89 c8                       	movl	%ecx, %eax
+100003f8c: 48 83 c4 10                 	addq	$16, %rsp
+100003f90: 5d                          	popq	%rbp
+100003f91: c3                          	retq
+
+Disassembly of section __TEXT,__stubs:
+
+0000000100003f92 <__stubs>:
+100003f92: ff 25 68 40 00 00           	jmpq	*16488(%rip)  # 100008000 <dyld_stub_binder+0x100008000>
+
+Disassembly of section __TEXT,__stub_helper:
+
+0000000100003f98 <__stub_helper>:
+100003f98: 4c 8d 1d 69 40 00 00        	leaq	16489(%rip), %r11  # 100008008 <__dyld_private>
+100003f9f: 41 53                       	pushq	%r11
+100003fa1: ff 25 59 00 00 00           	jmpq	*89(%rip)  # 100004000 <dyld_stub_binder+0x100004000>
+100003fa7: 90                          	nop
+100003fa8: 68 00 00 00 00              	pushq	$0
+100003fad: e9 e6 ff ff ff              	jmp	0x100003f98 <__stub_helper>

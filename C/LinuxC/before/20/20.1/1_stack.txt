@@ -1,0 +1,46 @@
+objdump -d stack.o
+
+stack.o:	file format mach-o 64-bit x86-64
+
+
+Disassembly of section __TEXT,__text:
+
+0000000000000000 <_push>:
+       0: 55                           	pushq	%rbp
+       1: 48 89 e5                     	movq	%rsp, %rbp
+       4: 48 8b 05 00 00 00 00         	movq	(%rip), %rax  # b <_push+0xb>
+       b: 40 88 7d ff                  	movb	%dil, -1(%rbp)
+       f: 8a 4d ff                     	movb	-1(%rbp), %cl
+      12: 8b 15 00 00 00 00            	movl	(%rip), %edx  # 18 <_push+0x18>
+      18: 83 c2 01                     	addl	$1, %edx
+      1b: 89 15 00 00 00 00            	movl	%edx, (%rip)  # 21 <_push+0x21>
+      21: 48 63 f2                     	movslq	%edx, %rsi
+      24: 88 0c 30                     	movb	%cl, (%rax,%rsi)
+      27: 5d                           	popq	%rbp
+      28: c3                           	retq
+      29: 0f 1f 80 00 00 00 00         	nopl	(%rax)
+
+0000000000000030 <_pop>:
+      30: 55                           	pushq	%rbp
+      31: 48 89 e5                     	movq	%rsp, %rbp
+      34: 48 8b 05 00 00 00 00         	movq	(%rip), %rax  # 3b <_pop+0xb>
+      3b: 8b 0d 00 00 00 00            	movl	(%rip), %ecx  # 41 <_pop+0x11>
+      41: 89 ca                        	movl	%ecx, %edx
+      43: 83 c2 ff                     	addl	$-1, %edx
+      46: 89 15 00 00 00 00            	movl	%edx, (%rip)  # 4c <_pop+0x1c>
+      4c: 48 63 f1                     	movslq	%ecx, %rsi
+      4f: 0f be 04 30                  	movsbl	(%rax,%rsi), %eax
+      53: 5d                           	popq	%rbp
+      54: c3                           	retq
+      55: 66 2e 0f 1f 84 00 00 00 00 00	nopw	%cs:(%rax,%rax)
+      5f: 90                           	nop
+
+0000000000000060 <_is_empty>:
+      60: 55                           	pushq	%rbp
+      61: 48 89 e5                     	movq	%rsp, %rbp
+      64: 83 3d ff ff ff ff ff         	cmpl	$-1, -1(%rip)  # 6a <_is_empty+0xa>
+      6b: 0f 94 c0                     	sete	%al
+      6e: 24 01                        	andb	$1, %al
+      70: 0f b6 c0                     	movzbl	%al, %eax
+      73: 5d                           	popq	%rbp
+      74: c3                           	retq

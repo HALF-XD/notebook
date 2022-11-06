@@ -1,0 +1,37 @@
+objdump -d main.o
+
+main.o:	file format mach-o 64-bit x86-64
+
+
+Disassembly of section __TEXT,__text:
+
+0000000000000000 <_main>:
+       0: 55                           	pushq	%rbp
+       1: 48 89 e5                     	movq	%rsp, %rbp
+       4: 48 83 ec 10                  	subq	$16, %rsp
+       8: c7 45 fc 00 00 00 00         	movl	$0, -4(%rbp)
+       f: bf 61 00 00 00               	movl	$97, %edi
+      14: e8 00 00 00 00               	callq	0x19 <_main+0x19>
+      19: bf 62 00 00 00               	movl	$98, %edi
+      1e: e8 00 00 00 00               	callq	0x23 <_main+0x23>
+      23: bf 63 00 00 00               	movl	$99, %edi
+      28: e8 00 00 00 00               	callq	0x2d <_main+0x2d>
+      2d: e8 00 00 00 00               	callq	0x32 <_main+0x32>
+      32: 83 f8 00                     	cmpl	$0, %eax
+      35: 0f 95 c1                     	setne	%cl
+      38: 80 f1 ff                     	xorb	$-1, %cl
+      3b: f6 c1 01                     	testb	$1, %cl
+      3e: 0f 85 05 00 00 00            	jne	0x49 <_main+0x49>
+      44: e9 12 00 00 00               	jmp	0x5b <_main+0x5b>
+      49: e8 00 00 00 00               	callq	0x4e <_main+0x4e>
+      4e: 0f be f8                     	movsbl	%al, %edi
+      51: e8 00 00 00 00               	callq	0x56 <_main+0x56>
+      56: e9 d2 ff ff ff               	jmp	0x2d <_main+0x2d>
+      5b: bf 0a 00 00 00               	movl	$10, %edi
+      60: e8 00 00 00 00               	callq	0x65 <_main+0x65>
+      65: 31 c9                        	xorl	%ecx, %ecx
+      67: 89 45 f8                     	movl	%eax, -8(%rbp)
+      6a: 89 c8                        	movl	%ecx, %eax
+      6c: 48 83 c4 10                  	addq	$16, %rsp
+      70: 5d                           	popq	%rbp
+      71: c3                           	retq
